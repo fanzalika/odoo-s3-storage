@@ -33,7 +33,7 @@ class S3Attachment(models.Model):
     def _file_read(self, fname, bin_size=False):
         storage = self._storage()
         if storage[:5] == 's3://':
-            access_key_id, secret_key, bucket_name, do_space_url = s3_helper.parse_bucket_url(
+            access_key_id, secret_key, bucket_name, do_space_url, encryption_enabled = s3_helper.parse_bucket_url(
                 storage)
             s3 = s3_helper.get_resource(
                 access_key_id, secret_key, do_space_url)
@@ -59,7 +59,7 @@ class S3Attachment(models.Model):
     def _file_write(self, value, checksum):
         storage = self._storage()
         if storage[:5] == 's3://':
-            access_key_id, secret_key, bucket_name, do_space_url = s3_helper.parse_bucket_url(
+            access_key_id, secret_key, bucket_name, do_space_url, encryption_enabled = s3_helper.parse_bucket_url(
                 storage)
             s3 = s3_helper.get_resource(
                 access_key_id, secret_key, do_space_url)

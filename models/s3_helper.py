@@ -71,7 +71,11 @@ def object_exists(s3, bucket_name, key):
 
 def get_resource(access_key_id, secret_key, endpoint_url):
     session = boto3.Session(access_key_id, secret_key)
-    s3 = session.resource('s3', endpoint_url='https://' + endpoint_url)
+    if endpoint_url != "":
+        endpoint_url = endpoint_url='https://' + endpoint_url
+    else:
+        endpoint_url = None
+    s3 = session.resource('s3', endpoint_url=endpoint_url)
     return s3
 
 # extra: works for files stored in the file system
